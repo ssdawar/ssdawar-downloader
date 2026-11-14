@@ -76,7 +76,50 @@ footer{
 <p>अपनी अधिकृत मीडिया फाइल का लिंक डालें।</p>
 
 <input type="url" placeholder="Paste your media link here">
+<div style="margin:20px auto;max-width:500px;padding:15px;">
+  <h2>🎵 Audio Download</h2>
 
+  <input
+    type="url"
+    id="audioUrl"
+    placeholder="Paste direct audio link"
+    style="width:100%;padding:13px;box-sizing:border-box;"
+  >
+
+  <button onclick="downloadAudio()"
+    style="width:100%;padding:14px;background:#16a34a;color:white;border:0;border-radius:8px;margin-top:12px;">
+    Download MP3
+  </button>
+
+  <p id="audioResult"></p>
+</div>
+
+<script>
+function downloadAudio() {
+  const url = document.getElementById("audioUrl").value.trim();
+  const result = document.getElementById("audioResult");
+
+  try {
+    const parsed = new URL(url);
+
+    if (parsed.protocol !== "https:" ||
+        !parsed.pathname.toLowerCase().endsWith(".mp3")) {
+      throw new Error();
+    }
+
+    const link = document.createElement("a");
+    link.href = parsed.href;
+    link.download = "audio.mp3";
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.click();
+
+    result.textContent = "Download request sent!";
+  } catch {
+    result.textContent = "Please enter a valid HTTPS MP3 file link.";
+  }
+}
+</script>
 
 <div class="info">
 अपनी या अनुमति प्राप्त वीडियो और ऑडियो फाइलों का ही उपयोग करें।
