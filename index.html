@@ -91,5 +91,16 @@ Continue
 © 2026 SS Dawar Network<br>
 Made with ❤️ by SSDawar
 </footer>
+<script>
+fetch("https://ssdawar-media.ssdawar810.workers.dev/")
+  .then(response => response.json())
+  .then(data => {
+    console.log("SS Dawar Backend:", data);
+  })
+  .catch(error => {
+    console.log("Connection Error:", error);
+  });
+</script>
+
 </body>
 </html>
