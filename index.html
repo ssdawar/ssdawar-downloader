@@ -102,5 +102,46 @@ fetch("https://ssdawar-media.ssdawar810.workers.dev/")
   });
 </script>
 
+<div style="margin:20px auto;max-width:500px;padding:15px;">
+  <h2>🎬 Video Download</h2>
+  <input
+    type="url"
+    id="videoUrl"
+    placeholder="Paste direct MP4 link"
+    style="width:100%;padding:13px;box-sizing:border-box;"
+  >
+
+  <button onclick="downloadVideo()"
+    style="width:100%;padding:14px;background:#2563eb;color:white;border:0;border-radius:8px;margin-top:12px;">
+    Download MP4
+  </button>
+  <p id="result"></p>
+</div>
+
+<script>
+function downloadVideo() {
+  const url = document.getElementById("videoUrl").value.trim();
+  const result = document.getElementById("result");
+
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol !== "https:" || !parsed.pathname.toLowerCase().endsWith(".mp4")) {
+      throw new Error();
+    }
+
+    const link = document.createElement("a");
+    link.href = parsed.href;
+    link.download = "video.mp4";
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.click();
+
+    result.textContent = "Download request sent!";
+  } catch {
+    result.textContent = "Please enter a valid HTTPS MP4 file link.";
+  }
+}
+</script>
+ 
 </body>
 </html>
